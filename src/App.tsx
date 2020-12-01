@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 import './App.css';
+import Board from './components/board';
+import Header from './components/header';
+import Menu from './components/menu/menu';
+import modern from './styles/themes/modern';
+import GlobalStyle from './styles/global'
+import ToggleSwitch from './components/toggleSwitch';
 
 function App() {
+  const [menu, setMenu] = useState(true)
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ToggleSwitch Name={'teste'} />
+      <ThemeProvider theme={modern}>
+        <GlobalStyle />
+        <Header />
+        {menu ? <Menu menu={menu} setMenu={setMenu} /> : <Board />}
+      </ThemeProvider>
+    </>
   );
 }
+
+
+
 
 export default App;
