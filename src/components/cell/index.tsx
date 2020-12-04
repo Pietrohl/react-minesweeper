@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-
 import { Container } from './styles';
-
-
+import { Flag, Bomb, Neighbour} from '../icons'
 
 export interface CellDataProps {
     isRevealed: boolean;
@@ -18,32 +16,34 @@ interface CellPrps {
     cMenu: any;
 }
 
+
+
 const Cell: React.FC<CellPrps> = (props: CellPrps) => {
     const { data, onClick, cMenu } = props
     const { isMine, isRevealed, isFlag, neighbour } = data
+    const [bgColor, setbgColor] = useState();
 
     const getValue = () => {
         if (!isRevealed) {
-            return isFlag ? "🚩" : null;
+            return isFlag ? <Flag /> : null;
         } else if (isMine) {
-            return "💣";
-        } else if (neighbour === 0) {
-            return null;
+            return <Bomb />;
         }
-        return neighbour
+        return <Neighbour num={neighbour} />
     }
+
 
     return (
         <>
-            <Container
+            <Container revealed={isRevealed}
+                flag={isFlag}
                 onClick={onClick}
                 onContextMenu={cMenu}>
                 {getValue()}
-        </Container>
+            </Container>
 
         </>
     );
 }
 
 export default Cell;
-

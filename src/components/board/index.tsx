@@ -1,8 +1,10 @@
 
-import React, { useCallback, useLayoutEffect, useMemo, useState } from 'react';
-import Cell, { CellDataProps } from '../cell';
+import React, { useEffect, useState } from 'react';
+import BoardHeader from '../boardHeader';
+import Cell from '../cell'
+import { CellDataProps } from '../cell';
 
-import { Container as BoardBody } from './styles';
+import { BoardBody, Container } from './styles';
 
 interface MapProp {
     rows: number;
@@ -11,13 +13,15 @@ interface MapProp {
 }
 
 const Board: React.FC<MapProp> = (props: MapProp) => {
-    
     const { rows, columns, bombs } = props;
-    const initBoardData = renderBoardBody({ rows, columns, bombs });
-    let [boardState, setBoardState] = useState(initBoardData)
-
-
-  
+    const [mouseHold, setMouseHold] = useState(false)
+    const initBoardState = {
+        boardMap: renderBoardBody({ rows, columns, bombs }),
+        gameWon: false,
+        mineArray: '0',
+        hiddenArray: '1',
+    };
+    let [boardState, setBoardState] = useState(initBoardState)
 
     const renderBody = (board: CellDataProps[][]) => {
         return board.map((boardRow, i) => boardRow.map((data, j) => <Cell
@@ -29,34 +33,75 @@ const Board: React.FC<MapProp> = (props: MapProp) => {
                 neighbour: data.neighbour
             }}
             onClick={() => handleCellClick(i, j)}
-            cMenu={{}}
+            cMenu={(e: MouseEvent) => handleContextMenu(e, i, j)}
         />))
     }
 
-
     function handleCellClick(row: number, column: number): void {
 
-        let newBoardState = [...boardState];
-        newBoardState[row][column].isRevealed = true;
-        setBoardState(newBoardState)
+        let { boardMap } = boardState;
+        let newBoardMap = boardMap;
 
+        if (newBoardMap[row][column].isMine) {
+            alert('perdeu')
+            setBoardState({
+                ...boardState,
+                boardMap: revealBoard(newBoardMap, rows, columns),
+            })
+        }
 
+        newBoardMap = revealEmptyCells(row, column, newBoardMap, rows, columns)
+
+        setBoardState({
+            ...boardState,
+            boardMap: newBoardMap,
+            hiddenArray: getHidden(newBoardMap)
+        })
+    }
+
+    function handleContextMenu(e: MouseEvent, row: number, column: number): void {
+        e.preventDefault();
+        let { boardMap } = boardState;
+        let newBoardMap = boardMap;
+
+        if (newBoardMap[row][column].isRevealed) return;
+
+        newBoardMap[row][column].isFlag = !newBoardMap[row][column].isFlag;
+
+        setBoardState({
+            ...boardState,
+            boardMap: newBoardMap,
+            mineArray: getMines(newBoardMap),
+            hiddenArray: getHidden(newBoardMap)
+        })
     }
 
 
+    useEffect(() => {
+        const {hiddenArray, mineArray} = boardState;
+
+        if(hiddenArray === mineArray )
+            alert('ganhou')
+
+
+    }, [boardState.hiddenArray,boardState.mineArray])
+
+
+
+
     return (
-        <>
-            <div className='board-header'>
-                <h1>Board</h1>
+        <Container>
+            <div className='board-header' >
+                <BoardHeader mouseHold={mouseHold} />
             </div>
-            <BoardBody rows={`${rows}`}>
-                {renderBody(boardState)}
+            <BoardBody 
+            rows={`${rows}`} 
+            onMouseDown={() => {setMouseHold(true)}} 
+            onMouseUp={() => {setMouseHold(false)}} 
+            >
+                {renderBody(boardState.boardMap)}
             </BoardBody>
-
-
-        </>
-
-
+        </Container>
     )
 }
 
@@ -103,4 +148,64 @@ const renderBoardBody = ({ rows, columns, bombs }: MapProp) => {
 }
 
 
+
+const revealEmptyCells = (row: number, column: number, board: CellDataProps[][], rows: number, columns: number) => {
+
+    board[row][column].isRevealed = true;
+
+    if (board[row][column].neighbour !== 0) return board;
+
+    for (let i = Math.max(row - 1, 0); i <= Math.min(rows - 1, row + 1); i++) {
+        for (let j = Math.max(column - 1, 0); j <= Math.min(columns - 1, column + 1); j++) {
+
+            if (!board[i][j].isRevealed) {
+                if (board[i][j].neighbour === 0)
+                    board = revealEmptyCells(i, j, board, rows, columns);
+                else
+                    board[i][j].isRevealed = true
+            }
+        }
+    }
+    return board;
+}
+
+
+const revealBoard = (board: CellDataProps[][], rows: number, columns: number) => {
+
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < columns; j++) {
+            board[i][j].isRevealed = true;
+        }
+    }
+    return board;
+}
+
+
+const getHidden = (board: CellDataProps[][]) => {
+    let hiddenArray: CellDataProps[] = [];
+
+    board.forEach(boardrow => {
+        boardrow.forEach(cellData => {
+            if (!cellData.isRevealed) hiddenArray.push(cellData)
+        })
+    })
+    return JSON.stringify(hiddenArray);
+}
+
+const getMines = (board: CellDataProps[][]) => {
+    let mineArray: CellDataProps[] = [];
+
+    board.forEach(boardrow => {
+        boardrow.forEach(cellData => {
+            if (cellData.isMine) mineArray.push(cellData)
+        })
+    })
+    return JSON.stringify(mineArray);
+}
+
+
+
+
 export default Board;
+
+

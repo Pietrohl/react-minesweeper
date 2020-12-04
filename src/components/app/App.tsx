@@ -14,9 +14,10 @@ function App() {
 
   return (
       <ThemeProvider theme={theme}>
-        {/* <ToggleSwitch name={'teste'} /> */}
         <GlobalStyle />
-        <Header />
+        <Header>
+        <ToggleSwitch name={'themeSwitch'} />
+        </Header>
         {menu ? <Menu menu={menu} setMenu={setMenu} /> : <Board rows={9} columns={9} bombs={10}/>}
       </ThemeProvider>
   );

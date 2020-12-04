@@ -8,7 +8,9 @@ declare module 'styled-components' {
             secundary: string,
             background: string,
         },
-        fonts: {},
-
+        fonts: {
+            digital: string,
+        },
+        numColors: string[],
     }
 }
