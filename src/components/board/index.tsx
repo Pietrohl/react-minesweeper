@@ -1,8 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
+import useGame from '../../hooks/useGame';
 import BoardHeader from '../boardHeader';
 import Cell from '../cell'
 import { CellDataProps } from '../cell';
+import { PlayingState } from '../../context/gameContext'
 
 import { BoardBody, Container } from './styles';
 
@@ -12,16 +13,32 @@ interface MapProp {
     bombs: number;
 }
 
-const Board: React.FC<MapProp> = (props: MapProp) => {
-    const { rows, columns, bombs } = props;
+
+
+
+
+
+
+
+
+
+
+const Board: React.FC = () => {
+    const { level, setFlags, playingState, setPlayingState } = useGame();
+    const { rows, columns, bombs } = level
     const [mouseHold, setMouseHold] = useState(false)
+
     const initBoardState = {
-        boardMap: renderBoardBody({ rows, columns, bombs }),
+        boardMap: setBoardBody({ rows, columns, bombs }),
         gameWon: false,
         mineArray: '0',
         hiddenArray: '1',
-    };
+        flagsArray: '2',
+    }
+
     let [boardState, setBoardState] = useState(initBoardState)
+
+
 
     const renderBody = (board: CellDataProps[][]) => {
         return board.map((boardRow, i) => boardRow.map((data, j) => <Cell
@@ -42,20 +59,27 @@ const Board: React.FC<MapProp> = (props: MapProp) => {
         let { boardMap } = boardState;
         let newBoardMap = boardMap;
 
+        if (playingState === 0)
+            setPlayingState(1)
+
         if (newBoardMap[row][column].isMine) {
-            alert('perdeu')
+            setPlayingState(PlayingState.Lost)
             setBoardState({
                 ...boardState,
                 boardMap: revealBoard(newBoardMap, rows, columns),
             })
+            return;
         }
 
         newBoardMap = revealEmptyCells(row, column, newBoardMap, rows, columns)
 
+        const [flags, flagsArray] = getFlags(newBoardMap)
+        setFlags(flags)
         setBoardState({
             ...boardState,
             boardMap: newBoardMap,
-            hiddenArray: getHidden(newBoardMap)
+            hiddenArray: getHidden(newBoardMap),
+            flagsArray: flagsArray
         })
     }
 
@@ -68,25 +92,26 @@ const Board: React.FC<MapProp> = (props: MapProp) => {
 
         newBoardMap[row][column].isFlag = !newBoardMap[row][column].isFlag;
 
+        const [flags, flagsArray] = getFlags(newBoardMap)
+        setFlags(flags)
         setBoardState({
             ...boardState,
             boardMap: newBoardMap,
             mineArray: getMines(newBoardMap),
-            hiddenArray: getHidden(newBoardMap)
+            hiddenArray: getHidden(newBoardMap),
+            flagsArray: flagsArray
         })
     }
 
 
     useEffect(() => {
-        const {hiddenArray, mineArray} = boardState;
+        const { hiddenArray, mineArray, flagsArray } = boardState;
+        if (hiddenArray === mineArray)
+            setPlayingState(PlayingState.Won)
+        if (flagsArray === mineArray)
+            setPlayingState(PlayingState.Won)
 
-        if(hiddenArray === mineArray )
-            alert('ganhou')
-
-
-    }, [boardState.hiddenArray,boardState.mineArray])
-
-
+    }, [boardState.flagsArray])
 
 
     return (
@@ -94,10 +119,10 @@ const Board: React.FC<MapProp> = (props: MapProp) => {
             <div className='board-header' >
                 <BoardHeader mouseHold={mouseHold} />
             </div>
-            <BoardBody 
-            rows={`${rows}`} 
-            onMouseDown={() => {setMouseHold(true)}} 
-            onMouseUp={() => {setMouseHold(false)}} 
+            <BoardBody
+                rows={`${rows}`}
+                onMouseDown={() => { setMouseHold(true) }}
+                onMouseUp={() => { setMouseHold(false) }}
             >
                 {renderBody(boardState.boardMap)}
             </BoardBody>
@@ -105,7 +130,7 @@ const Board: React.FC<MapProp> = (props: MapProp) => {
     )
 }
 
-const renderBoardBody = ({ rows, columns, bombs }: MapProp) => {
+const setBoardBody = ({ rows, columns, bombs }: MapProp) => {
     let board: CellDataProps[][] = [];
     for (let i = 0; i < rows; i++) {
         board[i] = [];
@@ -147,11 +172,11 @@ const renderBoardBody = ({ rows, columns, bombs }: MapProp) => {
 
 }
 
-
-
 const revealEmptyCells = (row: number, column: number, board: CellDataProps[][], rows: number, columns: number) => {
 
     board[row][column].isRevealed = true;
+    board[row][column].isFlag = false;
+    console.log(board[row][column])
 
     if (board[row][column].neighbour !== 0) return board;
 
@@ -161,14 +186,15 @@ const revealEmptyCells = (row: number, column: number, board: CellDataProps[][],
             if (!board[i][j].isRevealed) {
                 if (board[i][j].neighbour === 0)
                     board = revealEmptyCells(i, j, board, rows, columns);
-                else
-                    board[i][j].isRevealed = true
+                else {
+                    board[row][column].isFlag = false;
+                    board[i][j].isRevealed = true;
+                }
             }
         }
     }
     return board;
 }
-
 
 const revealBoard = (board: CellDataProps[][], rows: number, columns: number) => {
 
@@ -179,7 +205,6 @@ const revealBoard = (board: CellDataProps[][], rows: number, columns: number) =>
     }
     return board;
 }
-
 
 const getHidden = (board: CellDataProps[][]) => {
     let hiddenArray: CellDataProps[] = [];
@@ -201,6 +226,18 @@ const getMines = (board: CellDataProps[][]) => {
         })
     })
     return JSON.stringify(mineArray);
+}
+
+const getFlags = (board: CellDataProps[][]): [number, string] => {
+    let arr: CellDataProps[] = [];
+    let flagNumber: number = 0;
+    board.forEach(boardrow => {
+        boardrow.forEach(cellData => {
+            if (cellData.isFlag) arr.push(cellData) && flagNumber++
+        })
+    })
+    let flagsArray = JSON.stringify(arr)
+    return [flagNumber, flagsArray];
 }
 
 

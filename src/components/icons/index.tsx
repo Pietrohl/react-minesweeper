@@ -6,7 +6,7 @@ import { MODERN } from '../../constants/theme';
 import { BOMBSVG, FACESVG, FLAGSVG, NUMSVG } from '../../constants/icons'
 import { Container as NumContainer } from './styles'
 import { FaRegFrownOpen, FaRegSmile } from 'react-icons/fa';
-
+import React from 'react'
 
 
 export const Flag = () => {
@@ -53,6 +53,29 @@ export const Neighbour: React.FC<NeighbourProps> = (props: NeighbourProps) => {
     )
 }
 
+export const SmileFaceWon = () => {
+    const { title } = useTheme();
+
+    if (title === MODERN) return (
+        <IconContext.Provider value={{ size: '75%' }}>
+            <FaRegFrownOpen />
+        </IconContext.Provider>
+    )
+
+    return <img src={FACESVG[4]} />
+}
+
+export const SmileFaceLost = () => {
+    const { title } = useTheme();
+
+    if (title === MODERN) return (
+        <IconContext.Provider value={{ size: '75%' }}>
+            <FaRegFrownOpen />
+        </IconContext.Provider>
+    )
+
+    return <img src={FACESVG[3]} />
+}
 
 export const SmileFaceOpen = () => {
     const { title } = useTheme();
@@ -65,6 +88,20 @@ export const SmileFaceOpen = () => {
 
     return <img src={FACESVG[2]} />
 }
+
+export const SmileActive = () => {
+    const { title } = useTheme();
+
+    if (title === MODERN) return (
+        <IconContext.Provider value={{ size: '75%' }}>
+            <FaRegSmile />
+        </IconContext.Provider>
+    )
+
+    return <img src={FACESVG[1]} />
+}
+
+
 
 export const SmileFace = () => {
     const { title } = useTheme();

@@ -1,12 +1,10 @@
 import React, { createContext } from "react";
 import { DefaultTheme } from "styled-components";
-
 import usePersistedState from "../hooks/usePersistentState";
+import { KEY_LOCAL_STORAGE_THEME } from "../constants/localStorage";
 import modern from "../styles/themes/modern";
 import classic from "../styles/themes/classic";
-import { KEY_LOCAL_STORAGE_THEME } from "../constants/localStorage";
 import { MODERN } from "../constants/theme";
-import { CLASSIC } from '../constants/theme'
 
 interface ThemeContextData {
   toggleTheme(): void;

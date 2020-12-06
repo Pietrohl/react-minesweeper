@@ -27,6 +27,5 @@
   "files": [
     "src/styles/styled.d.ts",
     "src/styles/fonts.d.ts"
-
   ]
 }

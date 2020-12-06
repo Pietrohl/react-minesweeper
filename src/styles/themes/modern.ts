@@ -9,6 +9,8 @@ export default {
         secundary: 'C62E65',
         background: `#f7f7f7 url(${bg}) repeat center top`
     },
-    fonts: {},
+    fonts: {
+        digital: "Digital-7"
+    },
     numColors: ['', 'blue', 'darkgreen', 'red', 'darkblue', 'maroon','turquoise', 'black', 'darkgray']
 }

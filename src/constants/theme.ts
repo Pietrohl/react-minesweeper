@@ -1,2 +1,2 @@
-export const CLASSIC = "CLASSIC";
-export const MODERN = "MODERN";
+export const CLASSIC = "classic";
+export const MODERN = "modern";
