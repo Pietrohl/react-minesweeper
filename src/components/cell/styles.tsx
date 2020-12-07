@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { MODERN } from '../../constants/theme';
 
 interface CellProps {
         revealed: boolean
@@ -7,22 +6,15 @@ interface CellProps {
 }
 
 export const Container = styled.div<CellProps>`
-        ${props=> props.theme.title === MODERN? 
-                `background: ${props.revealed? '#32a852' : '#ADE25D'};
-                border: 1px solid ${props.revealed? '#32a852' : '#ADE25D'};
-                border-radius: 4px;
-                width: 40px ;
-                height: 40px;
-                margin: 2px;
-                text-align: center;
-                line-height: 40px;
-        `: 
-                `
-                background:${props.revealed? '#c0c0c0' : '#BDBDBD'};
-                width: 16px;
-                height: 16px;
-                border-style: ${props.revealed || props.flag ? 'none' : 'outset'};
-
+        ${props =>
+                `background: ${props.revealed ? props.theme.cell.primary : props.theme.cell.secondary};
+                border: ${props.revealed || props.flag?  props.theme.cell.borderRevealed : props.theme.cell.border};
+                border-radius: ${props.theme.cell.borderRadius};
+                width:  ${props.theme.cell.size};
+                height: ${props.theme.cell.size};
+                margin: ${props.theme.cell.margin};
+                text-align: ${props.theme.cell.textAlign};
+                line-height: ${props.theme.cell.lineHeight};
         
         `}
 `;

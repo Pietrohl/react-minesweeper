@@ -1,15 +1,19 @@
 import { createGlobalStyle } from 'styled-components'
 
-import myFontURL from '../assets/fonts/digital-7.regular.ttf';
-
+import digital7 from '../assets/fonts/digital-7.regular.ttf';
+import digitalTech from '../assets/fonts/digital-tech.regular.ttf'
 
 export default createGlobalStyle` 
 
 @font-face {
     font-family: "Digital-7";
-    src: url(${myFontURL});
+    src: url(${digital7});
   }
 
+  @font-face {
+    font-family: "Digital-Tech";
+    src: url(${digitalTech})
+  }
 
  *{
      margin: 0;

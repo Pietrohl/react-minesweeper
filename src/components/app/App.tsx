@@ -7,6 +7,7 @@ import GlobalStyle from '../../styles/global'
 import ToggleSwitch from '../toggleSwitch';
 import useToggleTheme from '../../hooks/useToggleTheme';
 import { GameContextProvider } from '../../context/gameContext';
+import Window from '../window';
 
 
 function App() {
@@ -19,8 +20,10 @@ function App() {
         <Header>
           <ToggleSwitch name={'themeSwitch'} />
         </Header>
-        <Menu />  
-        <Board/>
+        <Window>
+          <Menu />
+          <Board />
+        </Window>
       </ThemeProvider>
     </GameContextProvider>
   );

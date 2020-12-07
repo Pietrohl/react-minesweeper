@@ -51,7 +51,7 @@ const GameContextProvider: React.FC = ({ children }) => {
     // onWin
     const onWin = () => {
         dispatch({
-            type: GameActionTypes.onStart
+            type: GameActionTypes.onWin
         })
     }
 

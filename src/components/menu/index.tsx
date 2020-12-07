@@ -1,16 +1,26 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import useGame from '../../hooks/useGame';
 import MenuSection from '../menuSection';
 
-// import { Container } from './styles';
+import { Container } from './styles';
 
 function Menu() {
-    const { init } = useGame()
+    const { init, state } = useGame()
+    const { level} = state;
+    //custom game
+    // const [cusRows, setcusRows] = useState<number>(0);
+    // const [cusColumns, setCusColumns] = useState<number>(0);
+    // const [cusBombs, setCusBombs] = useState<number>(0);
+
 
     return (
-        <>
+        <Container>
+            <div className='top'>
+                Minesweeper
+            </div>
+
             <MenuSection name='Game' itemList={[{
-                onClick: () => { },
+                onClick: () => init(level),
                 name: 'new'
             },
             {
@@ -28,14 +38,9 @@ function Menu() {
             {
                 onClick: () => init({ rows: 30, columns: 16, bombs: 99 }),
                 name: 'Expert'
-            },
-            {
-                onClick: () => { },
-                name: 'Custom'
-            },
-
+            }
             ]}></MenuSection>
-        </>
+        </ Container>
     );
 }
 

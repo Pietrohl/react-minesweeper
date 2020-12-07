@@ -95,16 +95,17 @@ const Board: React.FC = () => {
 
     useEffect(() => {
         const { hiddenArray, mineArray, flagsArray } = boardState;
+
         if (hiddenArray === mineArray)
             onWin()
+
         if (flagsArray === mineArray)
             onWin()
 
-    }, [boardState.flagsArray])
+    }, [boardState])
 
     useLayoutEffect(() => {
 
-        console.log('playingState', playingState)
         if (playingState === PlayingState.Iddle)
             setBoardState(initBoardState)
 
@@ -151,7 +152,10 @@ const setBoardBody = ({ rows, columns, bombs }: MapProp) => {
     }
 
     const poulateMines = () => {
-        for (let i = 0; i < bombs; i++) {
+
+
+        let i = 0;
+        while ( i < bombs) {
             const row = ~~(Math.random() * rows)
             const column = ~~(Math.random() * columns)
 
@@ -160,6 +164,7 @@ const setBoardBody = ({ rows, columns, bombs }: MapProp) => {
             }
             board[row][column].isMine = true;
             incrementNeighbors(row, column);
+            i++
         }
     }
     poulateMines()
@@ -172,7 +177,6 @@ const revealEmptyCells = (row: number, column: number, board: CellDataProps[][],
 
     board[row][column].isRevealed = true;
     board[row][column].isFlag = false;
-    console.log(board[row][column])
 
     if (board[row][column].neighbour !== 0) return board;
 

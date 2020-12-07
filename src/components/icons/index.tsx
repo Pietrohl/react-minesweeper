@@ -5,15 +5,16 @@ import useTheme from '../../hooks/useTheme';
 import { MODERN } from '../../constants/theme';
 import { BOMBSVG, FACESVG, FLAGSVG, NUMSVG } from '../../constants/icons'
 import { Container as NumContainer } from './styles'
-import { FaRegFrownOpen, FaRegSmile } from 'react-icons/fa';
+import { FaRegFrownOpen, FaRegSmile, FaRegDizzy } from 'react-icons/fa';
+import { BiCool} from 'react-icons/bi';
 import React from 'react'
 
 
 export const Flag = () => {
-    const { title, colors } = useTheme();
+    const { title } = useTheme();
 
     if (title !== MODERN) {
-        return <img src={FLAGSVG} />
+        return <img src={FLAGSVG} alt='flag' />
     }
     return (
         <IconContext.Provider value={{ color: 'red', size: '80%' }}>
@@ -23,7 +24,7 @@ export const Flag = () => {
 }
 
 export const Bomb: React.FC = () => {
-    const { title, colors } = useTheme();
+    const { title } = useTheme();
 
 
     if (title === MODERN)
@@ -33,7 +34,7 @@ export const Bomb: React.FC = () => {
             </IconContext.Provider>
         )
 
-    return <img src={BOMBSVG[0]} />
+    return <img src={BOMBSVG[0]} alt='mine'/>
 }
 
 type NeighbourProps = {
@@ -42,13 +43,13 @@ type NeighbourProps = {
 
 export const Neighbour: React.FC<NeighbourProps> = (props: NeighbourProps) => {
     const { num } = props;
-    const { title, colors, numColors } = useTheme();
+    const { title, numColors } = useTheme();
     let color = numColors[num]
     let cellNum = NUMSVG[num]
 
     return (
         <>
-            {title === MODERN ? <NumContainer color={color}>{num !== 0 && num}</NumContainer> : <img src={cellNum} />}
+            {title === MODERN ? <NumContainer color={color}>{num !== 0 && num}</NumContainer> : <img src={cellNum} alt={`number-${num}`} />}
         </>
     )
 }
@@ -57,12 +58,12 @@ export const SmileFaceWon = () => {
     const { title } = useTheme();
 
     if (title === MODERN) return (
-        <IconContext.Provider value={{ size: '75%' }}>
-            <FaRegFrownOpen />
+        <IconContext.Provider value={{ size: '90%' }}>
+            <BiCool />
         </IconContext.Provider>
     )
 
-    return <img src={FACESVG[4]} />
+    return <img src={FACESVG[4]} alt='cool-face'/>
 }
 
 export const SmileFaceLost = () => {
@@ -70,11 +71,11 @@ export const SmileFaceLost = () => {
 
     if (title === MODERN) return (
         <IconContext.Provider value={{ size: '75%' }}>
-            <FaRegFrownOpen />
+            <FaRegDizzy />
         </IconContext.Provider>
     )
 
-    return <img src={FACESVG[3]} />
+    return <img src={FACESVG[3]} alt='lost-face' />
 }
 
 export const SmileFaceOpen = () => {
@@ -86,7 +87,7 @@ export const SmileFaceOpen = () => {
         </IconContext.Provider>
     )
 
-    return <img src={FACESVG[2]} />
+    return <img src={FACESVG[2]} alt='susspension-face'/>
 }
 
 export const SmileActive = () => {
@@ -98,7 +99,7 @@ export const SmileActive = () => {
         </IconContext.Provider>
     )
 
-    return <img src={FACESVG[1]} />
+    return <img src={FACESVG[1]} alt='smile-face'/>
 }
 
 
@@ -112,5 +113,5 @@ export const SmileFace = () => {
         </IconContext.Provider>
     )
 
-    return <img src={FACESVG[0]} />
+    return <img src={FACESVG[0]} alt='smile-face'/>
 }

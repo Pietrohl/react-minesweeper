@@ -70,7 +70,7 @@ const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
         <Digit>
           8
       </Digit>
-        {digits.tens !== 0 && digits.tens}
+        {(digits.tens !== 0 || num > 9) && digits.tens}
       </div>
       <div>
         <Digit>

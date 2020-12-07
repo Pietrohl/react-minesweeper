@@ -5,9 +5,11 @@ export const Container = styled.div`
     display: flex;
     flex-flow: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     ${props => props.theme.title === CLASSIC ? `
         margin-bottom: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
         border-width: 2px;
         border-style: solid;
         border-image: initial;
@@ -42,7 +44,6 @@ export const Button = styled.div`
     line-height: 112px;
     border-radius: 50%;
     box-shadow: 0px 3px 8px #aaa, inset 0px 2px 3px #fff;
-
     &:before {
         content: "";
         display: block;
@@ -70,6 +71,7 @@ export const ButtonContainer = styled.div`
     position: relative;
     display: inline-block;
     margin-right: -4px;
+    z-index: 0;
     &:before {
         content: "";
         display: block;
