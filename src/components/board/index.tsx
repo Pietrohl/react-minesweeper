@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import useGame from '../../hooks/useGame';
 import BoardHeader from '../boardHeader';
 import Cell from '../cell'
 import { CellDataProps } from '../cell';
 import { PlayingState } from '../../context/gameContext'
-
 import { BoardBody, Container } from './styles';
 
 interface MapProp {
@@ -13,19 +12,11 @@ interface MapProp {
     bombs: number;
 }
 
-
-
-
-
-
-
-
-
-
-
 const Board: React.FC = () => {
-    const { level, setFlags, playingState, setPlayingState } = useGame();
-    const { rows, columns, bombs } = level
+    const { state, setFlags, onStart, onWin, onMine } = useGame();
+    const { level, playingState } = state;
+
+    const { rows, columns, bombs } = level;
     const [mouseHold, setMouseHold] = useState(false)
 
     const initBoardState = {
@@ -37,7 +28,6 @@ const Board: React.FC = () => {
     }
 
     let [boardState, setBoardState] = useState(initBoardState)
-
 
 
     const renderBody = (board: CellDataProps[][]) => {
@@ -60,10 +50,10 @@ const Board: React.FC = () => {
         let newBoardMap = boardMap;
 
         if (playingState === 0)
-            setPlayingState(1)
+            onStart()
 
         if (newBoardMap[row][column].isMine) {
-            setPlayingState(PlayingState.Lost)
+            onMine()
             setBoardState({
                 ...boardState,
                 boardMap: revealBoard(newBoardMap, rows, columns),
@@ -103,16 +93,22 @@ const Board: React.FC = () => {
         })
     }
 
-
     useEffect(() => {
         const { hiddenArray, mineArray, flagsArray } = boardState;
         if (hiddenArray === mineArray)
-            setPlayingState(PlayingState.Won)
+            onWin()
         if (flagsArray === mineArray)
-            setPlayingState(PlayingState.Won)
+            onWin()
 
     }, [boardState.flagsArray])
 
+    useLayoutEffect(() => {
+
+        console.log('playingState', playingState)
+        if (playingState === PlayingState.Iddle)
+            setBoardState(initBoardState)
+
+    }, [playingState, level])
 
     return (
         <Container>

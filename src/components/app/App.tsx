@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import Board from '../board';
 import Header from '../header';
@@ -7,7 +7,6 @@ import GlobalStyle from '../../styles/global'
 import ToggleSwitch from '../toggleSwitch';
 import useToggleTheme from '../../hooks/useToggleTheme';
 import { GameContextProvider } from '../../context/gameContext';
-import useGame from '../../hooks/useGame';
 
 
 function App() {

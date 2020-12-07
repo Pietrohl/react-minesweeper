@@ -1,37 +1,36 @@
 import React, { ChangeEvent, useState } from 'react';
 import useGame from '../../hooks/useGame';
 import MenuSection from '../menuSection';
-import Selector from '../selector';
 
 // import { Container } from './styles';
 
 function Menu() {
-
+    const { init } = useGame()
 
     return (
         <>
             <MenuSection name='Game' itemList={[{
-                onClick: {},
+                onClick: () => { },
                 name: 'new'
             },
             {
-                onClick: {},
+                onClick: ()=>{},
                 name: 'divider'
             },
             {
-                onClick: {},
+                onClick: () => init({ rows: 9, columns: 9, bombs: 10 }),
                 name: 'Begginer'
             },
             {
-                onClick: {},
-                name: 'Expert'
-            },
-            {
-                onClick: {},
+                onClick: () => init({ rows: 15, columns: 13, bombs: 40 }),
                 name: 'Intermediary'
             },
             {
-                onClick: {},
+                onClick: () => init({ rows: 30, columns: 16, bombs: 99 }),
+                name: 'Expert'
+            },
+            {
+                onClick: () => { },
                 name: 'Custom'
             },
 

@@ -1,6 +1,5 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { useState } from 'react'
-import { useEffect } from 'react';
 import { useLayoutEffect } from 'react';
 import { Display as Container, Digit } from './styles';
 
@@ -25,7 +24,6 @@ const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
   useLayoutEffect(() => {
     let cents;
     let tens;
-    console.log('num é :', num)
     if (num < 0) {
       if (num < -9) {
         cents = '-'
@@ -56,14 +54,7 @@ const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
       })
     }
 
-
-    console.log('cents:', digits.cents)
-    console.log('tens:', digits.tens)
-    console.log('units', digits.units)
-
-
   }, [num])
-
 
 
 

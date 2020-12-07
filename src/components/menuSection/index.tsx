@@ -1,6 +1,5 @@
 import React from 'react';
 import { useState } from 'react';
-
 import { Container, MenuButton } from './styles';
 
 
@@ -47,8 +46,8 @@ const MenuSection: React.FC<MenuSectionProps> = (props: MenuSectionProps) => {
                 <div>
                     {name}
                 </div>
-                {itemList.map(item => (
-                    <MenuItem  onClick={item.onClick}>
+                {itemList.map((item,i) => (
+                    <MenuItem  key={i} onClick={item.onClick}>
                         {item.name}
                     </MenuItem>)
                 )}

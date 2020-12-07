@@ -11,7 +11,8 @@ interface BoardHeaderProps {
 
 const BoardHeader: React.FC<BoardHeaderProps> = (props: BoardHeaderProps) => {
     const { mouseHold } = props;
-    const { level, flags, endTime, startTime, playingState, setPlayingState } = useGame()
+    const { state, flags, endTime, startTime, init} = useGame()
+    const { level, playingState} = state
     const { bombs } = level;
     const [MouseDown, setMouseDown] = useState<boolean>(false)
 
@@ -31,14 +32,17 @@ const BoardHeader: React.FC<BoardHeaderProps> = (props: BoardHeaderProps) => {
     }
 
   
-
+    const handleMouseup = () => {
+        setMouseDown(false)
+        init(level)
+    }
 
 
     return (
         <Container >
             <Display num={bombs - flags} />
             <ButtonContainer>
-                <Button onClick={() => setPlayingState(0)} onMouseDown={() => setMouseDown(true)} onMouseUp={() => [ setMouseDown(false)]}>
+                <Button  onMouseDown={() => setMouseDown(true)} onMouseUp={() => handleMouseup()}>
                     {getIcon()}
                 </Button>
             </ButtonContainer>
