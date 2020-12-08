@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-import digital7 from '../assets/fonts/digital-7.regular.ttf';
+import digital7 from '../assets/fonts/digital-7.regular.ttf'
 import digitalTech from '../assets/fonts/digital-tech.regular.ttf'
 
 export default createGlobalStyle` 
@@ -33,5 +33,4 @@ export default createGlobalStyle`
     font-family: "Digital-7";
  }
 
-`;
-
+`

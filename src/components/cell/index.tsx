@@ -1,49 +1,47 @@
-import React, { useState } from 'react'
-import { Container } from './styles';
-import { Flag, Bomb, Neighbour} from '../icons'
+import React from 'react'
+import { Container } from './styles'
+import { Flag, Bomb, Neighbour } from '../icons'
 
 export interface CellDataProps {
-    isRevealed: boolean;
-    isMine: boolean;
-    isFlag: boolean;
-    neighbour: number;
-
+  isRevealed: boolean
+  isMine: boolean
+  isFlag: boolean
+  neighbour: number
 }
 
 interface CellPrps {
-    data: CellDataProps
-    onClick: any;
-    cMenu: any;
+  data: CellDataProps
+  onClick: () => void
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  cMenu: any
 }
-
-
 
 const Cell: React.FC<CellPrps> = (props: CellPrps) => {
-    const { data, onClick, cMenu } = props
-    const { isMine, isRevealed, isFlag, neighbour } = data
-    const [bgColor, setbgColor] = useState();
+  const { data, onClick, cMenu } = props
+  const { isMine, isRevealed, isFlag, neighbour } = data
+  //   const [bgColor, setbgColor] = useState()
 
-    const getValue = () => {
-        if (!isRevealed) {
-            return isFlag ? <Flag /> : null;
-        } else if (isMine) {
-            return <Bomb />;
-        }
-        return <Neighbour num={neighbour} />
+  const getValue = () => {
+    if (!isRevealed) {
+      return isFlag ? <Flag /> : null
+    } else if (isMine) {
+      return <Bomb />
     }
+    return <Neighbour num={neighbour} />
+  }
 
-
-    return (
-        <>
-            <Container revealed={isRevealed}
-                flag={isFlag}
-                onClick={onClick}
-                onContextMenu={cMenu}>
-                {getValue()}
-            </Container>
-
-        </>
-    );
+  return (
+    <>
+      <Container
+        revealed={isRevealed}
+        flag={isFlag}
+        onClick={onClick}
+        onContextMenu={cMenu}
+      >
+        {getValue()}
+      </Container>
+    </>
+  )
 }
 
-export default Cell;
+export default Cell

@@ -16,9 +16,17 @@ import BOMB from '../assets/image/mine.svg'
 import BOMBEXPLODED from '../assets/image/mine-exploded.svg'
 import BOMBWRONG from '../assets/image/mine-wrong.svg'
 import FLAG from '../assets/image/cell-flagged.svg'
-
-
-export const NUMSVG = [CELL0, CELL1,CELL2,CELL3,CELL4,CELL5,CELL6,CELL7,CELL8]
-export const FACESVG = [FACE, FACEACTIVE, FACECLICKING,FACELOST,FACEWON]
-export const BOMBSVG  = [BOMB, BOMBEXPLODED, BOMBWRONG]
-export const FLAGSVG  = FLAG;
+export const NUMSVG = [
+  CELL0,
+  CELL1,
+  CELL2,
+  CELL3,
+  CELL4,
+  CELL5,
+  CELL6,
+  CELL7,
+  CELL8
+]
+export const FACESVG = [FACE, FACEACTIVE, FACECLICKING, FACELOST, FACEWON]
+export const BOMBSVG = [BOMB, BOMBEXPLODED, BOMBWRONG]
+export const FLAGSVG = FLAG

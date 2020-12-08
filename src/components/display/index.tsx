@@ -1,16 +1,15 @@
-import React from 'react';
-import { useState } from 'react'
-import { useLayoutEffect } from 'react';
-import { Display as Container, Digit } from './styles';
+import React, { useState, useLayoutEffect } from 'react'
+
+import { Display as Container, Digit } from './styles'
 
 type DisplayProps = {
-  num: number;
+  num: number
 }
 
 type DisplayState = {
-  units: number,
-  tens: any,
-  cents: any
+  units: number
+  tens: number | string
+  cents: number | string
 }
 
 const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
@@ -22,17 +21,17 @@ const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
   })
 
   useLayoutEffect(() => {
-    let cents;
-    let tens;
+    let cents
+    let tens
     if (num < 0) {
       if (num < -9) {
         cents = '-'
-        tens = Math.min(9,Math.floor(Math.abs(num/10)))
+        tens = Math.min(9, Math.floor(Math.abs(num / 10)))
         setDigits({
           ...digits,
           cents: '-',
           tens: tens,
-          units: Math.min(9,Math.abs(num + tens*10))
+          units: Math.min(9, Math.abs(num + tens * 10))
         })
       } else {
         setDigits({
@@ -42,10 +41,9 @@ const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
           units: Math.abs(num)
         })
       }
-
     } else {
       cents = Math.floor(num / 100)
-      tens = Math.floor((num - (cents * 100)) / 10)
+      tens = Math.floor((num - cents * 100) / 10)
 
       setDigits({
         cents: cents,
@@ -53,33 +51,24 @@ const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
         units: Math.abs(num - tens * 10 - cents * 100)
       })
     }
-
   }, [num])
 
-
-
   return (
-    <Container >
+    <Container>
       <div>
-        <Digit>
-          8
-      </Digit>
-        {(digits.cents !== 0) && digits.cents}
+        <Digit>8</Digit>
+        {digits.cents !== 0 && digits.cents}
       </div>
       <div>
-        <Digit>
-          8
-      </Digit>
+        <Digit>8</Digit>
         {(digits.tens !== 0 || num > 9) && digits.tens}
       </div>
       <div>
-        <Digit>
-          8
-      </Digit>
+        <Digit>8</Digit>
         {digits.units}
       </div>
     </Container>
-  );
+  )
 }
 
-export default Display;
+export default Display

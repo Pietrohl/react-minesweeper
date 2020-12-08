@@ -1,10 +1,10 @@
-import { useContext } from 'react';
-import { ThemeContext } from "../context/toggleTheme";
+import { useContext } from 'react'
+import { DefaultTheme } from 'styled-components'
+import { ThemeContext } from '../context/toggleTheme'
 
-const useTheme = () => {
-
-    let {theme} = useContext(ThemeContext);
-    return theme;
+const useTheme = (): DefaultTheme => {
+  const { theme } = useContext(ThemeContext)
+  return theme
 }
 
-export default useTheme;
+export default useTheme

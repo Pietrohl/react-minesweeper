@@ -1,14 +1,20 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 interface CellProps {
-        revealed: boolean
-        flag: boolean
+  revealed: boolean
+  flag: boolean
 }
 
 export const Container = styled.div<CellProps>`
-        ${props =>
-                `background: ${props.revealed ? props.theme.cell.primary : props.theme.cell.secondary};
-                border: ${props.revealed || props.flag?  props.theme.cell.borderRevealed : props.theme.cell.border};
+  ${props =>
+    `background: ${
+      props.revealed ? props.theme.cell.primary : props.theme.cell.secondary
+    };
+                border: ${
+                  props.revealed || props.flag
+                    ? props.theme.cell.borderRevealed
+                    : props.theme.cell.border
+                };
                 border-radius: ${props.theme.cell.borderRadius};
                 width:  ${props.theme.cell.size};
                 height: ${props.theme.cell.size};
@@ -17,4 +23,4 @@ export const Container = styled.div<CellProps>`
                 line-height: ${props.theme.cell.lineHeight};
         
         `}
-`;
+`

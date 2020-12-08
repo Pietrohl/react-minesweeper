@@ -1,8 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import {ThemeContextProvider} from './context/toggleTheme'
-import App from './components/app/App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { ThemeContextProvider } from './context/toggleTheme'
+import App from './components/app/App'
 // import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -12,7 +11,6 @@ ReactDOM.render(
     </ThemeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
-);
-
+)
 
 // reportWebVitals();

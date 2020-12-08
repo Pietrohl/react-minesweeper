@@ -1,10 +1,10 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../context/toggleTheme';
+import { useContext } from 'react'
+import { ThemeContext, ThemeContextData } from '../context/toggleTheme'
 
-function useToggleTheme() {
-  const context = useContext(ThemeContext);
+function useToggleTheme(): ThemeContextData {
+  const context = useContext(ThemeContext)
 
-  return context;
+  return context
 }
 
-export default useToggleTheme;
+export default useToggleTheme
