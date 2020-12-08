@@ -1,8 +1,17 @@
 import styled from 'styled-components'
-import icon from '../../assets/image/minesweeper-icon.png'
+import { CLASSIC } from '../../constants/theme'
 
 export const Container = styled.div`
   background: ${props => props.theme.colors.secondary};
+  & .top {
+    font-size: ${props => props.theme.fonts.menu};
+  }
+
+  ${props =>
+    props.theme.title === CLASSIC
+      ? `
+  line-height: 15px;
+  align-items: center;
   & .top {
     color: white;
     font-weight: bold;
@@ -13,9 +22,17 @@ export const Container = styled.div`
       rgba(2, 0, 36, 1) 0%,
       rgba(9, 9, 121, 1) 22%,
       rgba(0, 212, 255, 0.8) 100%
-    );
-    &:before {
-      background: url(${icon});
+      );
+    & img {
+      height: 15px;
     }
   }
+  & .main-menu {
+    display: flex;
+    flex-flow: row;
+  }
+    `
+      : `
+      padding: 20px;
+      `}
 `

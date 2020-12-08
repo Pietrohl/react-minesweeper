@@ -35,6 +35,7 @@ const Board: React.FC = () => {
         <Cell
           key={`${i * rows + j}`}
           data={{
+            number: i * rows + j,
             isRevealed: data.isRevealed,
             isMine: data.isMine,
             isFlag: data.isFlag,
@@ -134,6 +135,7 @@ const setBoardBody = ({ rows, columns, bombs }: MapProp) => {
     board[i] = []
     for (let j = 0; j < columns; j++) {
       board[i][j] = {
+        number: i * rows + j,
         isRevealed: false,
         isMine: false,
         isFlag: false,

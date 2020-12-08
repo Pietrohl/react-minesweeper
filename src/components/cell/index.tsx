@@ -3,22 +3,23 @@ import { Container } from './styles'
 import { Flag, Bomb, Neighbour } from '../icons'
 
 export interface CellDataProps {
+  number: number
   isRevealed: boolean
   isMine: boolean
   isFlag: boolean
   neighbour: number
 }
 
-interface CellPrps {
+interface cellProps {
   data: CellDataProps
   onClick: () => void
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cMenu: any
 }
 
-const Cell: React.FC<CellPrps> = (props: CellPrps) => {
+const Cell: React.FC<cellProps> = (props: cellProps) => {
   const { data, onClick, cMenu } = props
-  const { isMine, isRevealed, isFlag, neighbour } = data
+  const { number, isMine, isRevealed, isFlag, neighbour } = data
   //   const [bgColor, setbgColor] = useState()
 
   const getValue = () => {
@@ -33,6 +34,7 @@ const Cell: React.FC<CellPrps> = (props: CellPrps) => {
   return (
     <>
       <Container
+        number={number}
         revealed={isRevealed}
         flag={isFlag}
         onClick={onClick}

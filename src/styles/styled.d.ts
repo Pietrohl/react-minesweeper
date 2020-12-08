@@ -7,9 +7,12 @@ declare module 'styled-components' {
       primary: string
       secondary: string
       background: string
+      hover: string
     }
     fonts: {
       digital: string
+      menu: string
+      button: string
     }
     numColors: string[]
     border: {

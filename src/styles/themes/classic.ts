@@ -6,10 +6,13 @@ export default {
   colors: {
     primary: '#c0c0c0',
     secondary: '#BDBDBD',
-    background: '#008080'
+    background: '#008080',
+    hover: 'blue'
   },
   fonts: {
-    digital: 'Digital-7'
+    digital: 'Digital-7',
+    menu: 'smaller',
+    button: 'smaller'
   },
   numColors: [
     '',
