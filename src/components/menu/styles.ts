@@ -25,6 +25,7 @@ export const Container = styled.div`
       );
     & img {
       height: 15px;
+      margin-right: 5px;
     }
   }
   & .main-menu {
