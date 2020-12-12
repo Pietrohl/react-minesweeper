@@ -2,11 +2,11 @@ import styled from 'styled-components'
 import { CLASSIC } from '../../constants/theme'
 
 interface BoardBodyProps {
-  rows: string
+  columns: string
 }
 
 export const BoardBody = styled.div<BoardBodyProps>`
-  grid-template-columns: repeat(${props => props.rows}, auto);
+  grid-template-columns: repeat(${props => props.columns}, auto);
   display: grid;
   width: min-content;
   ${props => `

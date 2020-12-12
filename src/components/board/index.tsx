@@ -116,7 +116,7 @@ const Board = React.memo(() => {
         <BoardHeader mouseHold={mouseHold} />
       </div>
       <BoardBody
-        rows={`${rows}`}
+        columns={`${columns}`}
         onMouseDown={() => {
           setMouseHold(true)
         }}
