@@ -12,7 +12,8 @@ interface MapProp {
   bombs: number
 }
 
-const Board: React.FC = () => {
+// eslint-disable-next-line react/display-name
+const Board = React.memo(() => {
   const { state, setFlags, onStart, onWin, onMine } = useGame()
   const { level, playingState } = state
 
@@ -127,7 +128,7 @@ const Board: React.FC = () => {
       </BoardBody>
     </Container>
   )
-}
+})
 
 const setBoardBody = ({ rows, columns, bombs }: MapProp) => {
   const board: CellDataProps[][] = []

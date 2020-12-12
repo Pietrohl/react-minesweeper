@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable func-call-spacing */
 import React, {
   useState,
   createContext,
@@ -42,9 +40,8 @@ const GameContextProvider: React.FC = ({ children }) => {
     playingState: PlayingState.Iddle
   }
 
-  const [state, dispatch] = useReducer<
-    (state: GameContextData, action: GameActions) => GameContextData
-      >(gameReducer, initialState)
+  // eslint-disable-next-line prettier/prettier
+  const [state, dispatch] = useReducer<(state: GameContextData, action: GameActions) => GameContextData>(gameReducer, initialState)
   const [flags, setFlags] = useState<number>(0)
   const [startTime, setStartTime] = useState<number>(0)
   const [endTime, setEndTime] = useState<number>(0)

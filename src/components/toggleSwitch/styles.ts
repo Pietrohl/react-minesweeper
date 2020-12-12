@@ -1,9 +1,15 @@
 import styled from 'styled-components'
 
+const buttonColor = '#DEF2f1'
+const firstColor = '#FEFFFF'
+const secondColor = '#17252A'
+const InnerHeight = 16
+const buttonSize = 2
+
 export const Container = styled.div`
   position: relative;
   width: 75px;
-  height: 32px;
+  height: ${buttonSize * InnerHeight}px;
   display: inline-block;
   vertical-align: middle;
   -webkit-user-select: none;
@@ -27,13 +33,17 @@ export const Input = styled.input`
 `
 
 export const Label = styled.label`
+  height: ${InnerHeight}px;
+  margin-top: ${(buttonSize * InnerHeight - InnerHeight) / 2}px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
   display: block;
   overflow: hidden;
   cursor: pointer;
   border: 0 solid #bbb;
   border-radius: 75px;
-  margin: 0;
-  background: #0c8346;
+  background: ${secondColor};
 `
 
 export const SpanInner = styled.span`
@@ -55,20 +65,19 @@ export const SpanInner = styled.span`
   &:before {
     content: '';
     text-transform: uppercase;
-    background-color: #f90;
-    color: #fff;
+    background-color: ${firstColor};
+    color: ${secondColor};
   }
 `
 
 export const SpanSwitch = styled.span`
   display: block;
   width: 41%;
-  margin: 1%;
-  background: #fff;
+  background: ${buttonColor};
   position: absolute;
   top: 0;
   bottom: 0;
-  right: 57%;
+  right: 58%;
   border: 0 solid #bbb;
   border-radius: 50%;
   transition: all 0.3s ease-in 0s;

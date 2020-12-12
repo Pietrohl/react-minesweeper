@@ -15,42 +15,45 @@ interface BoardHeaderProps {
   mouseHold: unknown
 }
 
-const BoardHeader: React.FC<BoardHeaderProps> = (props: BoardHeaderProps) => {
-  const { mouseHold } = props
-  const { state, flags, endTime, startTime, init } = useGame()
-  const { level, playingState } = state
-  const { bombs } = level
-  const [MouseDown, setMouseDown] = useState<boolean>(false)
+// eslint-disable-next-line react/display-name
+const BoardHeader: React.FC<BoardHeaderProps> = React.memo(
+  (props: BoardHeaderProps) => {
+    const { mouseHold } = props
+    const { state, flags, endTime, startTime, init } = useGame()
+    const { level, playingState } = state
+    const { bombs } = level
+    const [MouseDown, setMouseDown] = useState<boolean>(false)
 
-  const getIcon = () => {
-    if (MouseDown) return <SmileActive />
+    const getIcon = () => {
+      if (MouseDown) return <SmileActive />
 
-    if (playingState === PlayingState.Won) return <SmileFaceWon />
+      if (playingState === PlayingState.Won) return <SmileFaceWon />
 
-    if (playingState === PlayingState.Lost) return <SmileFaceLost />
+      if (playingState === PlayingState.Lost) return <SmileFaceLost />
 
-    return mouseHold ? <SmileFaceOpen /> : <SmileFace />
+      return mouseHold ? <SmileFaceOpen /> : <SmileFace />
+    }
+
+    const handleMouseup = () => {
+      setMouseDown(false)
+      init(level)
+    }
+
+    return (
+      <Container>
+        <Display num={bombs - flags} />
+        <ButtonContainer>
+          <Button
+            onMouseDown={() => setMouseDown(true)}
+            onMouseUp={() => handleMouseup()}
+          >
+            {getIcon()}
+          </Button>
+        </ButtonContainer>
+        <Display num={endTime - startTime} />
+      </Container>
+    )
   }
-
-  const handleMouseup = () => {
-    setMouseDown(false)
-    init(level)
-  }
-
-  return (
-    <Container>
-      <Display num={bombs - flags} />
-      <ButtonContainer>
-        <Button
-          onMouseDown={() => setMouseDown(true)}
-          onMouseUp={() => handleMouseup()}
-        >
-          {getIcon()}
-        </Button>
-      </ButtonContainer>
-      <Display num={endTime - startTime} />
-    </Container>
-  )
-}
+)
 
 export default BoardHeader
