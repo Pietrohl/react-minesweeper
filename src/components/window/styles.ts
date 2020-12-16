@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import { MODERN } from '../../constants/theme'
 
-export const Container = styled.div`
+export const Container = styled.div<{ loading: boolean }>`
+  ${props => props.loading && 'visibility:hidden;'}
   ${props =>
     props.theme.title === MODERN
-      ? `
+      ? ` 
   display: flex;
   flex-flow: row-reverse;
   `

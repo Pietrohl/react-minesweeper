@@ -10,7 +10,8 @@ interface CellProps {
 
 export const Container = styled.div<CellProps>`
   ${props =>
-    `background: ${
+    `cursor: ${props.revealed ? 'default' : 'pointer'};
+    background: ${
       props.revealed
         ? props.theme.cell.primary
         : props.theme.title === MODERN && props.number % 2 === 0

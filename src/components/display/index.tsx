@@ -19,7 +19,6 @@ const Display: React.FC<DisplayProps> = (props: DisplayProps) => {
     tens: 0,
     cents: 0
   })
-
   useLayoutEffect(() => {
     let cents
     let tens

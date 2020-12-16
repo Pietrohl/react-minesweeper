@@ -1,16 +1,17 @@
 import React from 'react'
-import { useTheme } from 'styled-components'
 import { CLASSIC } from '../../constants/theme'
 import useGame from '../../hooks/useGame'
 import MenuSection from '../menuSection'
 import icon from '../../assets/image/minesweeper-icon.png'
 
 import { Container } from './styles'
+import useTheme from '../../hooks/useTheme'
 
 function Menu(): JSX.Element {
   const { init, state } = useGame()
   const { title } = useTheme()
   const { level } = state
+
   // custom game
   // const [cusRows, setcusRows] = useState<number>(0);
   // const [cusColumns, setCusColumns] = useState<number>(0);
@@ -41,11 +42,11 @@ function Menu(): JSX.Element {
               name: 'Begginer'
             },
             {
-              onClick: () => init({ rows: 15, columns: 13, bombs: 40 }),
+              onClick: () => init({ rows: 13, columns: 15, bombs: 40 }),
               name: 'Intermediary'
             },
             {
-              onClick: () => init({ rows: 30, columns: 16, bombs: 99 }),
+              onClick: () => init({ rows: 16, columns: 30, bombs: 99 }),
               name: 'Expert'
             }
           ]}

@@ -15,11 +15,12 @@ export const Container = styled.div<ContainerProps>`
     }
   }
 
-  ${props =>
-    props.theme.title === CLASSIC
+  ${props => {
+    return props.theme.title === CLASSIC
       ? `
   font-size: smaller;
   & .main-button {
+    cursor: pointer;
     padding: 4px;
     margin-top: 2px;
     width: min-content;
@@ -56,8 +57,10 @@ export const Container = styled.div<ContainerProps>`
       : `
       margin-top: 10px;
       width: 200px;
+      cursor: pointer;
       & .main-button {
-        &:hover {
+      cursor: pointer;
+      &:hover {
           background: ${props.theme.colors.hover}
         }
       }
@@ -66,7 +69,8 @@ export const Container = styled.div<ContainerProps>`
           animation: expand 0.5s ease-in-out;
         }
       }
-      `}
+      `
+  }}
 `
 
 export const MenuButton = styled.div`
@@ -77,6 +81,7 @@ export const MenuButton = styled.div`
     }
   }
   background: ${props => props.theme.colors.secondary};
+  cursor: pointer;
   text-align: left;
   border: none;
   font-size: ${props => props.theme.fonts.button};
