@@ -1,6 +1,6 @@
-import { MODERN } from '../../constants/theme'
+import { lighten } from 'polished'
 import bg from '../../assets/image/bg.png'
-import { shade, lighten } from 'polished'
+import { MODERN } from '../../constants/theme'
 export default {
   title: MODERN,
 
